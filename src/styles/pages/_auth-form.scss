@@ -1,0 +1,42 @@
+@use "../global/variables" as *;
+
+.authForm {
+  font-family: $ff-main;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 16px;
+  border: 1px solid #ddd;
+  background: $color-white;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.authForm input {
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: none;
+  border: 1px solid #ccc;
+}
+
+.authForm-submit,
+.regForm-submit {
+  padding: 10px 8px;
+  background: #52a252;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  margin-top: 0;
+  cursor: pointer;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-email {
+  font-size: 12px;
+}

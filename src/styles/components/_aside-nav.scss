@@ -1,0 +1,121 @@
+@use "../global/variables" as *;
+@use "../global/mixins";
+
+.aside-nav {
+  padding: 46px 0;
+  background-color: $color-light-grey;
+  min-width: 290px;
+
+  @media (max-width: $vp-mobile) {
+    padding: 20px 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+
+    @include mixins.vp-767 {
+      flex-direction: row;
+      flex-flow: row-reverse;
+      justify-content: center;
+      gap: 19px;
+    }
+
+    @media (max-width: 340px) {
+      flex-direction: column-reverse;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+
+      @include mixins.vp-767 {
+        &:last-child {
+          padding-left: 16px;
+        }
+
+        &:first-child {
+          padding-right: 16px;
+        }
+      }
+
+      @media (max-width: 340px) {
+        padding: 0 16px;
+      }
+    }
+  }
+
+  &__btn {
+    padding: 9px 30px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    cursor: pointer;
+
+    &-text {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 400;
+      color: $color-smooth-black;
+      letter-spacing: 0.048em;
+      margin: 0;
+
+      @include mixins.vp-767 {
+        font-size: 14px;
+        letter-spacing: 0.01em;
+      }
+    }
+
+    &-icon--small {
+      color: $color-white;
+      display: none;
+    }
+
+    @include mixins.vp-767 {
+      padding: 10px 16px;
+      border-radius: 30px;
+      background-color: $color-dark-salmon;
+      justify-content: center;
+
+      &-icon {
+        display: none;
+      }
+
+      &-icon--small {
+        display: flex;
+      }
+    }
+
+    &:disabled {
+      background-color: $color-white;
+      cursor: default;
+
+      @include mixins.vp-767 {
+        background-color: $color-white;
+
+        .aside-nav__btn-icon--small {
+          display: none;
+        }
+      }
+    }
+
+    &:not(:disabled) {
+      @include mixins.vp-767 {
+        .aside-nav__btn-text {
+          color: $color-white;
+        }
+      }
+    }
+  }
+}

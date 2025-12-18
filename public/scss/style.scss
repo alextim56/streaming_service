@@ -1,0 +1,23 @@
+/* Global */
+/* ------------------------------------ */
+@import "global/_variables";
+@import "global/_mixins";
+@import "global/_fonts";
+@import "global/_reboot";
+@import "global/_container";
+@import "global/_visually-hidden";
+
+/* Blocks */
+/* ------------------------------------ */
+@import "blocks/_custom-search";
+@import "blocks/_header";
+@import "blocks/_search-form";
+@import "blocks/_track-table";
+@import "blocks/_track";
+@import "blocks/_track-card";
+@import "blocks/_player";
+@import "blocks/_audio";
+@import "blocks/_aside-nav";
+@import "blocks/_user-btn";
+@import "blocks/_menu-list";
+@import "blocks/_footer";

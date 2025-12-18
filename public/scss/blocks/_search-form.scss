@@ -1,0 +1,24 @@
+.search-form {
+    margin: 0;
+    padding: 15px 20px 14px 44px;
+    border-radius: 30px;
+    background-color: $color-light-grey;
+    position: relative;
+
+    &__image {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__text {
+        font-size: 12px;
+        line-height: 22px;
+        color: $color-dark-gray;
+        text-transform: uppercase;
+        border: none;
+        background-color: transparent;
+        width: 100%;
+    }
+}

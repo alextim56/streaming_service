@@ -1,0 +1,18 @@
+/* Global */
+/* ------------------------------------ */
+/*@forward "global/variables";
+@forward "global/mixins";
+@forward "global/fonts";
+@forward "global/reboot";
+@forward "global/container";
+@forward "global/visually-hidden";*/
+//@use "global" as *;
+
+@use "global";
+
+/* Blocks */
+/* ------------------------------------ */
+@use "pages";
+@use "components";
+
+
