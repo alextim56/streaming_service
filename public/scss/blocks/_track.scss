@@ -1,0 +1,76 @@
+.track {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
+    }
+
+    &__name {
+        margin: 0;
+        font-size: 14px;
+        line-height: 14px;
+        letter-spacing: 0.01em;
+        font-weight: 400;
+        color: $color-light-black;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        max-width: 246px;
+    }
+
+    &__author {
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: 0.01em;
+        font-weight: 400;
+        color: $color-smooth-gray;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+    }
+
+    &__album {
+        text-overflow: ellipsis;
+    }
+
+    &__ago,
+    &__commands {
+        font-size: 14px;
+        line-height: 12px;
+        letter-spacing: 0.01em;
+        font-weight: 400;
+        color: $color-smooth-gray;
+    }
+
+    &__commands {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &__heart {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity ease-in 100ms;
+
+        &:hover,
+        &:focus-visible {
+            opacity: 1;
+        }
+
+        &--active {
+            opacity: 1;
+        }
+    }
+}

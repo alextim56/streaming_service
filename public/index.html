@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Аудиоплейер</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__wrapper">
+                <a class="header__logo" href="#">
+                    <svg class="header__icon-logo" width="184" height="30" aria-hidden="true">
+                        <use xlink:href="images/sprite.svg#icon-logo"></use>
+                    </svg>
+                </a>
+                <div class="header__search">
+                    <form class="search-form" action="#">
+                        <label class="search-form__label" for="search-form__text">
+                            <input class="search-form__text" id="search-form__text" type="search" value=""
+                                placeholder="Что будем искать?">
+                            <svg class="search-form__image" width="24" height="24" aria-hidden="true">
+                                <use xlink:href="images/sprite.svg#icon-search"></use>
+                            </svg>
+                        </label>
+                    </form>
+                </div>
+                <div class="header__user">
+                    <button class="user-btn">
+                        <picture class="user-btn__picture">
+                            <source media="(max-width: 869px)"
+                                srcset="./images/avatar/user-mobile.png 1x, ./images/avatar/user-mobile@2x.png 2x"
+                                width="25" height="25">
+                            <img class="user-btn__avatar" src="images/avatar/user.png"
+                                srcset="images/avatar/user@2x.png 2x" alt="Пользователь">
+                        </picture>
+
+                        <span class="user-btn__name">username</span>
+                        <svg class="user-btn__icon" width="16" height="16" aria-hidden="true">
+                            <use xlink:href="images/sprite.svg#icon-chevron"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="header__profile">
+                    <ul class="menu-list">
+                        <li class="menu-list__item">
+                            <span class="menu-list__text">username</span>
+                        </li>
+                        <li class="menu-list__item">
+                            <button class="menu-list__btn" type="button">Профиль</button>
+                        </li>
+                        <li class="menu-list__item">
+                            <button class="menu-list__btn" type="button">Выйти</button>
+                        </li>
+                    </ul>
+                    <!--  <div class="header__profile-name">username</div>
+                    <button class="header__profile-btn">Профиль</button>
+                    <button class="header__profile-btn">Выйти</button> -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="audio">
+            <div class="container">
+                <h1 class="visually-hidden">Прогрыватель аудио-треков</h1>
+                <div class="audio__wrapper">
+                    <aside class="aside-nav audio__nav">
+                        <h2 class="aside-nav__heading visually-hidden">Категории аудио-треков</h2>
+                        <ul class="aside-nav__list">
+                            <li class="aside-nav__list-item">
+                                <button class="aside-nav__btn" disabled>
+                                    <svg class="aside-nav__btn-icon" width="32" height="32" aria-hidden="true">
+                                        <use xlink:href="images/sprite.svg#icon-musicnotes"></use>
+                                    </svg>
+                                    <svg class="aside-nav__btn-icon aside-nav__btn-icon--small" width="24" height="24"
+                                        aria-hidden="true">
+                                        <use xlink:href="images/sprite.svg#icon-play-small"></use>
+                                    </svg>
+                                    <span class="aside-nav__btn-text">Избранное</span>
+                                </button>
+                            </li>
+                            <li class="aside-nav__list-item">
+                                <button class="aside-nav__btn">
+                                    <svg class="aside-nav__btn-icon" width="32" height="32" aria-hidden="true">
+                                        <use xlink:href="images/sprite.svg#icon-musicnotes"></use>
+                                    </svg>
+                                    <svg class="aside-nav__btn-icon aside-nav__btn-icon--small" width="24" height="24"
+                                        aria-hidden="true">
+                                        <use xlink:href="images/sprite.svg#icon-play-small"></use>
+                                    </svg>
+                                    <span class="aside-nav__btn-text">Аудиокомпозиции</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </aside>
+                    <div class="audio__gallery">
+                        <h2 class="audio__gallery-heading">Аудиофайлы и треки</h2>
+                        <table class="track-table">
+                            <thead class="track-table__header">
+                                <tr>
+                                    <th class="track-table__col">№</th>
+                                    <th class="track-table__col">Название</th>
+                                    <th class="track-table__col">Альбом</th>
+                                    <th class="track-table__col">
+                                        <svg width="16" height="16" aria-hidden="true">
+                                            <use xlink:href="images/sprite.svg#icon-calendar"></use>
+                                        </svg>
+                                    </th>
+                                    <th class="track-table__col"></th>
+                                    <th class="track-table__col">
+                                        <svg width="16" height="16" aria-hidden="true">
+                                            <use xlink:href="images/sprite.svg#icon-clock"></use>
+                                        </svg>
+                                    </th>
+                                    <th class="track-table__col"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="track-table__body">
+                                <tr class="track-table__row">
+                                    <td class="track-table__col track-table__col--number">
+                                        <span class="track-table__number">1</span>
+                                    </td>
+                                    <td class="track-table__col track-table__col--track">
+                                        <div class="track-card track-card--xl">
+                                            <img class="track-card__image" src="./images/tracks/nirvana.png" width="60"
+                                                height="60" alt="Фото пластинки">
+                                            <div class="track-card__wrapper">
+                                                <h3 class="track-card__name">In Bloom</h3>
+                                                <span class="track-card__author">Nirvana</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--album">
+                                        <div class="track-card">
+                                            <h3 class="track-card__name">Nirvana</h3>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--date">
+                                        <div class="track-card">
+                                            <span class="track-card__ago">6 дней назад</span>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--favorite">
+                                        <div class="track-card">
+                                            <svg class="track-card__heart" width="24" height="24" aria-hidden="true">
+                                                <use xlink:href="images/sprite.svg#icon-heart"></use>
+                                            </svg>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--duration">
+                                        <div class="track-card">
+                                            <span class="track-card__duration">5:35</span>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--burger">
+                                        <div class="track-card track-card--centered">
+                                            <button class="track-card__burger" type="button">
+                                                <svg width="23" height="4" aria-hidden="true">
+                                                    <use xlink:href="images/sprite.svg#icon-burger"></use>
+                                                </svg>
+                                            </button>
+                                            <div class="track-card__menu">
+                                                <ul class="menu-list">
+                                                    <li class="menu-list__item">
+                                                        <button class="menu-list__btn" type="button">Добавить в
+                                                            Избранное</button>
+                                                    </li>
+                                                    <li class="menu-list__item">
+                                                        <button class="menu-list__btn" type="button">Удалить</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="track-table__row">
+                                    <td class="track-table__col track-table__col--number">
+                                        <span class="track-table__number">2</span>
+                                    </td>
+                                    <td class="track-table__col track-table__col--track">
+                                        <div class="track-card track-card--xl">
+                                            <img class="track-card__image" src="./images/tracks/noimage.png" width="60"
+                                                height="60" alt="Фото пластинки">
+                                            <div class="track-card__wrapper">
+                                                <h3 class="track-card__name">Разговоры о животных</h3>
+                                                <span class="track-card__author">Подкаст-студия Константина
+                                                    Петрова</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--album">
+                                        <div class="track-card">
+                                            <h3 class="track-card__name">Lorem ipsum dolor sit amet consectetur,
+                                                adipisicing
+                                                elit. Voluptates animi similique et, quis eos quo eius blanditiis ut
+                                                repellendus vel exercitationem quam perspiciatis quidem consectetur
+                                                voluptate deleniti fuga reiciendis. Odio!</h3>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--date">
+                                        <div class="track-card">
+                                            <span class="track-card__ago">6 дней назад</span>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--favorite">
+                                        <div class="track-card">
+                                            <svg class="track-card__heart" width="24" height="24" aria-hidden="true">
+                                                <use xlink:href="images/sprite.svg#icon-heart"></use>
+                                            </svg>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--duration">
+                                        <div class="track-card">
+                                            <span class="track-card__duration">5:35</span>
+                                        </div>
+                                    </td>
+                                    <td class="track-table__col track-table__col--burger">
+                                        <div class="track-card track-card--centered">
+                                            <button class="track-card__burger" type="button">
+                                                <svg width="23" height="4" aria-hidden="true">
+                                                    <use xlink:href="images/sprite.svg#icon-burger"></use>
+                                                </svg>
+                                            </button>
+                                            <div class="track-card__menu">
+                                                <ul class="menu-list">
+                                                    <li class="menu-list__item">
+                                                        <button class="menu-list__btn" type="button">Добавить в
+                                                            Избранное</button>
+                                                    </li>
+                                                    <li class="menu-list__item">
+                                                        <button class="menu-list__btn" type="button">Удалить</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ol class="audio__pagination">
+                            <li class="audio__pagination-item">
+                                <button class="audio__pagination-btn" disabled>1</button>
+                            </li>
+                            <li class="audio__pagination-item">
+                                <button class="audio__pagination-btn">2</button>
+                            </li>
+                            <li class="audio__pagination-item">
+                                <button class="audio__pagination-btn">3</button>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer footer--active">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__track">
+                    <div class="track-card">
+                        <img class="track-card__image" src="./images/tracks/histoire.png" width="60" height="60"
+                            alt="Фото пластинки">
+                        <div class="track-card__wrapper">
+                            <div class="track-card__song">
+                                <h3 class="track-card__name">Histoire Sans Nom Histoire Sans Nom Histoire Sans Nom</h3>
+                                <svg class="track-card__heart track-card__heart--active" width="24" height="24"
+                                    aria-hidden="true">
+                                    <use xlink:href="images/sprite.svg#icon-heart"></use>
+                                </svg>
+                            </div>
+                            <span class="track-card__author">Ludovico Einaudi, Czech National Symphony Orchestra
+                                Ludovico
+                                Einaudi, Czech National Symphony Orchestra</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__player">
+                    <div class="player">
+                        <div class="player__controls">
+                            <button class="player__shuffle">
+                                <svg width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="images/sprite.svg#icon-shuffle"></use>
+                                </svg>
+                            </button>
+                            <button class="player__back">
+                                <svg width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="images/sprite.svg#icon-skipback"></use>
+                                </svg>
+                            </button>
+                            <button class="player__play">
+                                <svg width="40" height="40" aria-hidden="true">
+                                    <use xlink:href="images/sprite.svg#icon-play"></use>
+                                </svg>
+                            </button>
+                            <button class="player__forward">
+                                <svg width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="images/sprite.svg#icon-skipforward"></use>
+                                </svg>
+                            </button>
+                            <button class="player__repeat">
+                                <svg width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="images/sprite.svg#icon-repeat"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="player__progress">
+                            <span class="player__elapsed">0:26</span>
+                            <progress class="player__bar" value="26" max="100"></progress>
+                            <span class="player__total">6:55</span>
+                        </div>
+                    </div>
+                    <div class="player player--small">
+                        <button class="player__play">
+                            <svg width="40" height="40" aria-hidden="true">
+                                <use xlink:href="images/sprite.svg#icon-play"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="footer__player footer__player--xl">
+                    <div class="player player--small">
+                        <div class="player__progress">
+                            <span class="player__elapsed">0:26</span>
+                            <progress class="player__bar" value="26" max="100"></progress>
+                            <span class="player__total">6:55</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__volume player">
+                    <div class="player__volume">
+                        <svg class="player__speaker" width="16" height="16" aria-hidden="true">
+                            <use xlink:href="images/sprite.svg#icon-speaker"></use>
+                        </svg>
+                        <input class="player__sound" type="range" min="0" max="100" step="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const userEl = document.querySelector('.header__user');
+        userEl.addEventListener('click', function (e) {
+            document.querySelector('.header__profile').classList.toggle('header__profile--active');
+        });
+
+        const menuEl = document.querySelector('.track-card__burger');
+
+        document.querySelectorAll('.track-card__burger').forEach(element => {
+            element.addEventListener('click', function (e) {
+                element.nextElementSibling.classList.toggle('track-card__menu--active')
+            });
+        });
+
+        /*menuEl.addEventListener('click', function (e) {
+            console.log('click');
+            document.querySelector('.track-card__menu').classList.toggle('track-card__menu--active');
+        });*/
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+.header {
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: $color-white;
+
+  &__wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin: 0 -30px;
+
+    @media (max-width: $vp-middle) {
+      gap: 0;
+      justify-content: space-between;
+      margin: 0;
+    }
+
+    @include vp-767 {
+      margin: 0;
+    }
+  }
+
+  &__logo {
+    min-width: 289px;
+    display: flex;
+    padding: 20px 0 19px 0;
+    justify-content: center;
+    border-right: 1px solid $color-smart-grey;
+
+    @media (max-width: $vp-middle) {
+      padding: 15px 0;
+      border: none;
+      min-width: 178px;
+    }
+  }
+
+  &__search {
+    width: 100%;
+
+    @media (max-width: $vp-middle) {
+      display: none;
+    }
+  }
+
+  &__user {
+    min-width: 246px;
+    padding-right: 30px;
+
+    @media (max-width: $vp-middle) {
+      min-width: unset;
+    }
+  }
+
+  &__profile {
+    position: absolute;
+    right: 30px;
+    top: calc(100%);
+    background-color: $color-white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 10px 60px 0 #4848481A;
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    transition: opacity $transition-300, transform $transition-300;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 216px;
+
+    &--active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+  }
+}

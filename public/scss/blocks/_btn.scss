@@ -1,0 +1,52 @@
+.btn {
+  display: block;
+  text-transform: uppercase;
+  background-color: $color-white;
+  border-radius: 30px;
+  text-align: center;
+  font-weight: 700;
+  color: $color-daisy-bush;
+  border: 2px solid $color-daisy-bush;
+  padding: 16px;
+  width: 100%;
+  font-size: 18px;
+  line-height: 18px;
+  font-family: inherit;
+
+  @include vp-1439 {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 13px;
+  }
+
+  @include vp-767 {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+
+.btn--size-xl {
+  font-size: 24px;
+  line-height: 24px;
+  background-color: $color-daisy-bush;
+  color: $color-white;
+  padding: 30px;
+  border: none;
+
+  @include vp-1439 {
+    padding: 14px;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  @include vp-767 {
+    padding: 14px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+
+.btn:hover {
+  color: $color-white;
+  background-color: $color-daisy-bush;
+}

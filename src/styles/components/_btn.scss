@@ -1,0 +1,26 @@
+@use "../global/variables" as *;
+@use "../global/mixins";
+
+.btn {
+    margin: 0;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: $color-light-grey;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: $ff-main;
+    font-size: 16px;
+    line-height: 18px;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color $transition-300;
+
+    &:hover,
+    &:focus-visible {
+        outline: none;
+        background-color: $color-dark-salmon;
+    }
+}
