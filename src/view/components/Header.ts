@@ -5,6 +5,7 @@ import avatar from '../../assets/images/avatar/user.png';
 import avatar2x from '../../assets/images/avatar/user@2x.png';
 import avatarMobile from '../../assets/images/avatar/user-mobile.png';
 import avatarMobile2x from '../../assets/images/avatar/user-mobile@2x.png';
+import { localStorageClass } from '../../model/localStorageClass';
 
 export function getHeader() {
     const iconLogo = svg(
@@ -43,7 +44,7 @@ export function getHeader() {
                             el('source', { media: '(max-width: 869px)', srcset: avatarMobile+' 1x, '+avatarMobile2x+' 2x', width: 25, height: 25 }),
                             el('img', { class: 'user-btn__avatar', src: avatar, srcset: avatar2x+' 2x', width: 42, height: 42, alt: 'Пользователь' })
                         ]),
-                        el('span', { class: 'user-btn__name' }, 'username'),
+                        el('span', { class: 'user-btn__name' }, `${localStorageClass.grantedUser?.username}`),
                         iconUser
                     ])
                 ]),
