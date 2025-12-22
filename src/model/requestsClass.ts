@@ -1,5 +1,6 @@
 //const User = require('../../models/UserClass');
-import type { UserType } from '../types';
+import type { UserType, AudioTrack } from '../types';
+import { isAudioTrackArray } from '../types';
 import { localStorageClass } from '../model/localStorageClass';
 
 export async function loginUser(newUser: UserType) {
@@ -54,6 +55,13 @@ export async function getAllTracks() {
         }
 
         const data = await response.json();
+
+        // Валидация полученных данных
+        if (!isAudioTrackArray(data)) {
+            console.error('Invalid data format received from API');
+            return null;
+        }
+
         return data;
     } catch (error) {
         console.error('Login failed:', error);
