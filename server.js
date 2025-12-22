@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const path = require("path");
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -14,6 +15,9 @@ const PORT = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'dist')));
+
+// Базовый вариант (разрешает все origins)
+app.use(cors());
 
 app.use('/api', routes);
 

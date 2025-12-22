@@ -1,0 +1,134 @@
+@use "../global/variables" as *;
+@use "../global/mixins";
+
+.track-card {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    &__image {
+        width: 60px;
+        height: 60px;
+    }
+
+    &--xl {
+        .track-card__image {
+            width: 70px;
+            height: 70px;
+        }
+    }
+
+    &--centered {
+        justify-content: center;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
+    }
+
+    &__song {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__name,
+    &__ago {
+        margin: 0;
+        font-size: 14px;
+        line-height: 14px;
+        letter-spacing: 0.01em;
+        font-weight: 400;
+        color: $color-light-black;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+    }
+
+    &__author {
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: 0.01em;
+        font-weight: 400;
+        color: $color-smooth-gray;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+    }
+
+    &__album {
+        text-overflow: ellipsis;
+    }
+
+    &__ago,
+    &__duration {
+        font-size: 14px;
+        line-height: 12px;
+        letter-spacing: 0.01em;
+        font-weight: 400;
+        color: $color-smooth-gray;
+    }
+
+    &__commands {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &__heart {
+        width: 24px;
+        height: 24px;
+        opacity: 0;
+        transition: opacity ease-in 100ms;
+
+        &:hover,
+        &:focus-visible {
+            opacity: 1;
+        }
+
+        &--active {
+            opacity: 1;
+        }
+    }
+
+    &__burger {
+        border: none;
+        background-color: transparent;
+        padding: 20px 2px;
+        margin: 0;
+        display: flex;
+        cursor: pointer;
+    }
+
+    &__menu {
+        position: absolute;
+        right: 8px;
+        top: 0;
+        background-color: $color-white;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 10px 60px 0 #4848481A;
+        opacity: 0;
+        transform: translateY(-20px);
+        pointer-events: none;
+        transition: opacity $transition-300, transform $transition-300;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 216px;
+
+        &--active {
+            opacity: 1;
+            transform: translateY(70%);
+            pointer-events: all;
+        }
+    }
+}

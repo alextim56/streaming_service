@@ -1,26 +1,49 @@
 import { el, setChildren } from 'redom';
 import './styles/style.scss';
-import logo from './assets/images/logo.svg';
 import { authForm } from './view/pages/AuthPage';
 import { getMainPage } from './view/pages/MainPage';
 import type { UserType } from './types';
+import { localStorageClass } from './model/localStorageClass';
+import { getAllTracks, checkConnected } from './model/requestsClass';
 
-let user: UserType;
+async function setUser(newUser: UserType) {
+    if (newUser) {
+        const { username, password } = newUser;
+        console.log('User set data is ', newUser);
 
-/*const header: HTMLElement = el('header', { class: 'page-header' }, [
-    el('div', { class: 'page-header-text' }, 'Добро пожаловать в '),
-    el('img', { class: 'page-header-logo', src: logo }),
-]);*/
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            });
+            console.log(response);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-function setUser(data: UserType) {
-    user = data;
-    console.log('User set data is ', data);
-    initApp();
-}
+            const data = await response.json();
 
-function getUser() {
-    console.log('User get data is ', user);
-    return user;
+            // Сохраняем токен, если сервер его возвращает
+            if (data.token) {
+                localStorageClass.grantedUser = {
+                    ...newUser,
+                    token: data.token
+                };
+                console.log('new user is: ', localStorageClass.grantedUser);
+                initApp();
+                return true;
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+            return false;
+        }
+    }
 }
 
 function initAuth() {
@@ -35,17 +58,12 @@ function showMainPage() {
     setChildren(document.body, getMainPage());
 }
 
-/*const authFormEl = authForm();
-
-const appDiv: HTMLElement | null = document.querySelector('#app');
-if (appDiv) {
-    setChildren(appDiv, [authFormEl]);
-}*/
-
 async function initApp() {
     try {
-        const user = getUser();
-        if (!user) {
+        // проверка соединения
+        const isConnected = await checkConnected();
+        console.log('Проверка связи - !!!!' + isConnected);
+        if (!isConnected) {
             initAuth();
             return;
         }

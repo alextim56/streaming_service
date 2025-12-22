@@ -1,3 +1,4 @@
 module.exports = {
-    secretKey: 'your_secret_key'
+    secretKey: 'your_secret_key',
+    storageKey: 'user_data'
 }
