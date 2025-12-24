@@ -1,8 +1,9 @@
 import { el, svg, setChildren } from 'redom';
 import logo from '../../assets/images/sprite.svg';
 import noimage from '../../assets/images/tracks/noimage.png';
-import { getAllTracks } from '../../model/requestsClass';
+import * as audioTracks from '../../assets/audio';
 import type { AudioTrack } from '../../types';
+import { audioData } from '../../model/AudioClass';
 
 export function getAudioSection(): HTMLElement {
     const iconMusicNotes1 = svg(
@@ -45,17 +46,19 @@ export function getAudioSection(): HTMLElement {
         svg('use', { xlink: { href: logo + '#icon-burger' } })
     );
 
-    const allTracksButton: HTMLElement = el('button', { class: 'aside-nav__btn', id: 'all-btn', disabled: false }, [
+    const allTracksButton: HTMLButtonElement = el('button', { class: 'aside-nav__btn', id: 'all-btn', disabled: false }, [
         iconMusicNotes2,
         iconPlaySmall2,
         el('span', { class: 'aside-nav__btn-text' }, 'Аудиокомпозиции')
     ]);
 
     allTracksButton.onclick = async e => {
-        allTracksButton.setAttribute('disabled', 'disabled');
-        const allTracks = await getAllTracks();
-        if (allTracks) {
-            renderTrackTable(allTracks);
+        allTracksButton.disabled = true;
+        favTracksButton.disabled = false;
+        //const allTracks = await getAllTracks();
+        //console.log(audioData.tracks);
+        if (audioData.tracks) {
+            renderTrackTable(audioData.tracks);
         }
     };
 
@@ -121,7 +124,7 @@ export function getAudioSection(): HTMLElement {
                 ])
             ]);
             trackCardBurger.classList.add('track-card--centered');
-            
+
             const tableCol7: HTMLTableCellElement = el('td', { class: 'track-table__col' }, [
                 trackCardBurger
             ]);
@@ -137,19 +140,33 @@ export function getAudioSection(): HTMLElement {
                 tableCol7
             ]);
             tableRow.setAttribute('data-id', `${track.id}`);
+            tableRow.onclick = e => {
+                //console.log(`Song is ${track.title} ${track.id % 5}`);
+                const decodedString = atob(track.encoded_audio);
+                console.log('Encoded data is: '+decodedString);
+
+                if (audioData.tracks) {
+                    const someTrack = audioData.tracks.find(x => x.id === track.id);
+                    if (someTrack) {
+                        audioData.currentTrack = someTrack;
+                        audioData.play();
+                    }
+                }
+            };
 
             trackTableBody.append(tableRow);
         });
     }
 
-    const favTracksButton: HTMLElement = el('button', { class: 'aside-nav__btn', id: 'favorites-btn', disabled: false }, [
+    const favTracksButton: HTMLButtonElement = el('button', { class: 'aside-nav__btn', id: 'favorites-btn', disabled: false }, [
         iconMusicNotes1,
         iconPlaySmall1,
         el('span', { class: 'aside-nav__btn-text' }, 'Избранное')
     ]);
 
     favTracksButton.onclick = e => {
-        favTracksButton.setAttribute('disabled', 'disabled');
+        allTracksButton.disabled = false;
+        favTracksButton.disabled = true;
     };
 
     const audioSection: HTMLElement = el('section', { class: 'audio' }, [
