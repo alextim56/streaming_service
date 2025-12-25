@@ -79,7 +79,6 @@
 
     &__row {
         height: 88px;
-        cursor: pointer;
         border-bottom: 1px solid $color-dark-gray;
 
         @include mixins.vp-767 {
