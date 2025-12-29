@@ -1,0 +1,92 @@
+import { el, svg } from 'redom';
+import logo from '../../assets/images/sprite.svg';
+import type { AudioTrack } from '../../types';
+import { getTrackCardElement, getTrackCardNameElement, getTrackCardAgoElement, getTrackCardHeartElement } from './TrackCard';
+
+const iconSpeaker = svg(
+    'svg', { class: 'player__speaker', width: 16, height: 16 },
+    svg('use', { xlink: { href: logo + '#icon-speaker' } })
+);
+
+const iconShuffle = svg(
+    'svg', { width: 16, height: 16 },
+    svg('use', { xlink: { href: logo + '#icon-shuffle' } })
+);
+
+const iconBack = svg(
+    'svg', { width: 16, height: 16 },
+    svg('use', { xlink: { href: logo + '#icon-skipback' } })
+);
+
+const iconPlay = svg(
+    'svg', { width: 40, height: 40 },
+    svg('use', { xlink: { href: logo + '#icon-play' } })
+);
+
+const iconForward = svg(
+    'svg', { width: 16, height: 16 },
+    svg('use', { xlink: { href: logo + '#icon-skipforward' } })
+);
+
+const iconRepeat = svg(
+    'svg', { width: 16, height: 16 },
+    svg('use', { xlink: { href: logo + '#icon-repeat' } })
+);
+
+export function getFooterElement(track: AudioTrack): HTMLElement {
+    const player = el('div', { class: 'player' }, [
+        el('div', { class: 'player__controls' }, [
+            el('button', { class: 'player__shuffle' }, [iconShuffle]),
+            el('button', { class: 'player__back' }, [iconBack]),
+            el('button', { class: 'player__play' }, [iconPlay]),
+            el('button', { class: 'player__forward' }, [iconForward]),
+            el('button', { class: 'player__repeat' }, [iconRepeat])
+        ])
+    ]);
+
+    const playerSmall = el('div', { class: 'player' }, [
+        el('div', { class: 'player__progress' }, [
+            el('span', { class: 'player__elapsed' }, '0:26'),
+            el('progress', { class: 'player__bar', value: 26, max: 100 }),
+            el('span', { class: 'player__total' }, '6:55')
+        ])
+    ]);
+    playerSmall.classList.add('player--small');
+
+    const playerSmallButton = el('div', { class: 'player' }, [
+        el('div', { class: 'player__progress' }, [
+            el('span', { class: 'player__elapsed' }, '0:26'),
+            el('progress', { class: 'player__bar', value: 26, max: 100 }),
+            el('span', { class: 'player__total' }, '6:55')
+        ])
+    ]);
+    playerSmallButton.classList.add('player--small');
+
+    const footerPlayerXl = el('div', { class: 'footer__player' }, [playerSmall]);
+    footerPlayerXl.classList.add('footer__player--xl');
+
+    const footerVolume = el('div', { class: 'footer__volume' }, [
+        el('div', { class: 'player__volume' }, [
+            iconSpeaker,
+            el('input', { class: 'player__sound', type: 'range', min: 0, max: 10, step: 1 })
+        ])
+    ]);
+    footerVolume.classList.add('player');
+
+    const footer: HTMLElement = el('footer', { class: 'footer' }, [
+        el('div', { class: 'container' }, [
+            el('div', { class: 'footer__content' }, [
+                el('div', { class: 'footer__track' }, [
+                    getTrackCardElement(track)
+                ]),
+                el('div', { class: 'footer__player' }, [
+                    player
+                ]),
+                footerPlayerXl,
+                footerVolume
+            ])
+        ])
+    ]);
+
+    return footer;
+}
