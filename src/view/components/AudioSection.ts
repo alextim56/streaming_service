@@ -1,9 +1,10 @@
-import { el, svg, setChildren } from 'redom';
+import { el, svg } from 'redom';
 import logo from '../../assets/images/sprite.svg';
 import noimage from '../../assets/images/tracks/noimage.png';
 import * as audioTracks from '../../assets/audio';
 import type { AudioTrack } from '../../types';
 import { audioData } from '../../model/AudioClass';
+import { getTrackCardElement, getTrackCardNameElement, getTrackCardAgoElement, getTrackCardHeartElement } from './TrackCard';
 
 export function getAudioSection(): HTMLElement {
     const iconMusicNotes1 = svg(
@@ -36,16 +37,6 @@ export function getAudioSection(): HTMLElement {
         svg('use', { xlink: { href: logo + '#icon-clock' } })
     );
 
-    const iconHeart = svg(
-        'svg', { width: 24, height: 24 },
-        svg('use', { xlink: { href: logo + '#icon-heart' } })
-    );
-
-    const iconBurger = svg(
-        'svg', { width: 23, height: 4 },
-        svg('use', { xlink: { href: logo + '#icon-burger' } })
-    );
-
     const allTracksButton: HTMLButtonElement = el('button', { class: 'aside-nav__btn', id: 'all-btn', disabled: false }, [
         iconMusicNotes2,
         iconPlaySmall2,
@@ -67,50 +58,37 @@ export function getAudioSection(): HTMLElement {
     function renderTrackTable(tracks: AudioTrack[]) {
         trackTableBody.innerHTML = '';
         tracks.forEach(track => {
+            const iconBurger = svg(
+                'svg', { width: 23, height: 4 },
+                svg('use', { xlink: { href: logo + '#icon-burger' } })
+            );
+
             const tableCol1: HTMLTableCellElement = el('td', { class: 'track-table__col' }, [
                 el('span', { class: 'track-table__number' }, `${track.id}`)
             ]);
             tableCol1.classList.add('track-table__col--number');
 
-            const trackCard: HTMLElement = el('div', { class: 'track-card' }, [
-                el('img', { class: 'track-card__image', src: `${noimage}`, width: 60, height: 60 }),
-                el('div', { class: 'track-card__wrapper' }, [
-                    el('h3', { class: 'track-card__name' }, `${track.title}`),
-                    el('span', { class: 'track-card__author' }, `${track.artist}`)
-                ])
-            ]);
-            trackCard.classList.add('track-card--xl');
-
             const tableCol2: HTMLTableCellElement = el('td', { class: 'track-table__col' }, [
-                trackCard
+                getTrackCardElement(track)
             ]);
             tableCol2.classList.add('track-table__col--track');
 
-            const trackCardAlbum: HTMLElement = el('div', { class: 'track-card' }, [
-                el('h3', { class: 'track-card__name' }, `${track.artist}`)
-            ]);
             const tableCol3: HTMLTableCellElement = el('td', { class: 'track-table__col' }, [
-                trackCardAlbum
+                getTrackCardNameElement(track)
             ]);
             tableCol3.classList.add('track-table__col--album');
 
-            const trackCardAgo: HTMLElement = el('div', { class: 'track-card' }, [
-                el('span', { class: 'track-card__ago' }, `6 дней назад`)
-            ]);
             const tableCol4: HTMLTableCellElement = el('td', { class: 'track-table__col' }, [
-                trackCardAgo
+                getTrackCardAgoElement(track)
             ]);
             tableCol4.classList.add('track-table__col--date');
 
-            const trackCardHeart: HTMLElement = el('div', { class: 'track-card' }, [
-                [iconHeart]
-            ]);
             const tableCol5: HTMLTableCellElement = el('td', { class: 'track-table__col' }, [
-                trackCardHeart
+                getTrackCardHeartElement()
             ]);
             tableCol5.classList.add('track-table__col--favorite');
 
-            const trackCardDuration: HTMLElement = el('div', { class: 'track-card' }, [
+            const trackCardDuration: HTMLDivElement = el('div', { class: 'track-card' }, [
                 el('span', { class: 'track-card__duration' }, `${track.duration}`)
             ]);
             const tableCol6: HTMLTableCellElement = el('td', { class: 'track-table__col' }, [
@@ -118,7 +96,7 @@ export function getAudioSection(): HTMLElement {
             ]);
             tableCol6.classList.add('track-table__col--duration');
 
-            const trackCardBurger: HTMLElement = el('div', { class: 'track-card' }, [
+            const trackCardBurger: HTMLDivElement = el('div', { class: 'track-card' }, [
                 el('button', { class: 'track-card__burger', type: 'button' }, [
                     [iconBurger]
                 ])
@@ -140,19 +118,6 @@ export function getAudioSection(): HTMLElement {
                 tableCol7
             ]);
             tableRow.setAttribute('data-id', `${track.id}`);
-            tableRow.onclick = e => {
-                //console.log(`Song is ${track.title} ${track.id % 5}`);
-                const decodedString = atob(track.encoded_audio);
-                console.log('Encoded data is: '+decodedString);
-
-                if (audioData.tracks) {
-                    const someTrack = audioData.tracks.find(x => x.id === track.id);
-                    if (someTrack) {
-                        audioData.currentTrack = someTrack;
-                        audioData.play();
-                    }
-                }
-            };
 
             trackTableBody.append(tableRow);
         });

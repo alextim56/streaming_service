@@ -1,6 +1,6 @@
 import { setChildren } from 'redom';
 import { getHeader } from '../components/Header';
-import { getAudioSection } from '../components/Audio';
+import { getAudioSection } from '../components/AudioSection';
 
 export function getMainPage() {
 	const header = getHeader();
