@@ -49,7 +49,7 @@ export function getAudioSection(): HTMLElement {
         //const allTracks = await getAllTracks();
         //console.log(audioData.tracks);
         if (audioData.tracks) {
-            renderTrackTable(audioData.tracks);
+            renderTrackTable(audioData.tracks.slice(0, 5));
         }
     };
 

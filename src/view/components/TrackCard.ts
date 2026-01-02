@@ -4,6 +4,7 @@ import noimage from '../../assets/images/tracks/noimage.png';
 import * as audioTracks from '../../assets/audio';
 import type { AudioTrack } from '../../types';
 import { audioData } from '../../model/AudioClass';
+import { setFooterAudioTrack } from './Footer'; 
 
 export function getTrackCardElement(track: AudioTrack): HTMLElement {
     const trackCard: HTMLDivElement = el('div', { class: 'track-card' }, [
@@ -21,6 +22,7 @@ export function getTrackCardElement(track: AudioTrack): HTMLElement {
         if (audioData.tracks) {
             const someTrack = audioData.tracks.find(x => x.id === track.id);
             if (someTrack) {
+                setFooterAudioTrack(someTrack);
                 audioData.currentTrack = someTrack;
                 audioData.play();
             }
