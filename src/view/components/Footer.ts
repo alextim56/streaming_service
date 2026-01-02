@@ -1,6 +1,7 @@
 import { el, svg } from 'redom';
 import logo from '../../assets/images/sprite.svg';
 import type { AudioTrack } from '../../types';
+import { audioData } from '../../model/AudioClass';
 import { getTrackCardElement, getTrackCardNameElement, getTrackCardAgoElement, getTrackCardHeartElement } from './TrackCard';
 
 const iconSpeaker = svg(
@@ -45,19 +46,30 @@ export function setFooterAudioTrack(track: AudioTrack) {
     }
 }
 
+export const elapsedElement = el('span', { class: 'player__elapsed' });
+export const progressElement = el('progress', { class: 'player__bar', value: 0, max: 100 });
+export const playerTotalElement = el('span', { class: 'player__total' });
+
 export function getFooterElement(): HTMLElement {
+    const playButton = el('button', { class: 'player__play' }, [iconPlay]);
+    playButton.onclick = e => {
+        if (audioData.tracks) {
+            audioData.play();
+        }
+    };
+
     const player = el('div', { class: 'player' }, [
         el('div', { class: 'player__controls' }, [
             el('button', { class: 'player__shuffle' }, [iconShuffle]),
             el('button', { class: 'player__back' }, [iconBack]),
-            el('button', { class: 'player__play' }, [iconPlay]),
+            playButton,
             el('button', { class: 'player__forward' }, [iconForward]),
             el('button', { class: 'player__repeat' }, [iconRepeat])
         ]),
         el('div', { class: 'player__progress' }, [
-            el('span', { class: 'player__elapsed' }, '0:26'),
-            el('progress', { class: 'player__bar', value: 26, max: 100 }),
-            el('span', { class: 'player__total' }, '6:55')
+            elapsedElement,
+            progressElement,
+            playerTotalElement
         ])
     ]);
 
@@ -91,16 +103,14 @@ export function getFooterElement(): HTMLElement {
     footerVolume.classList.add('player');
 
     const footer: HTMLElement = el('footer', { class: 'footer' }, [
-        el('div', { class: 'container' }, [
-            el('div', { class: 'footer__content' }, [
-                el('div', { class: 'footer__track' }),
-                el('div', { class: 'footer__player' }, [
-                    player,
-                    playerSmall
-                ]),
-                footerPlayerXl,
-                footerVolume
-            ])
+        el('div', { class: 'footer__content' }, [
+            el('div', { class: 'footer__track' }),
+            el('div', { class: 'footer__player' }, [
+                player,
+                playerSmall
+            ]),
+            footerPlayerXl,
+            footerVolume
         ])
     ]);
 

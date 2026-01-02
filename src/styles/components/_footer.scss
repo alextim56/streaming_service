@@ -22,6 +22,10 @@
     grid-template-columns: 1fr 1fr 97px;
     gap: 84px;
     align-items: center;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 30px;
 
     @include mixins.vp-767 {
       grid-template-columns: 1fr 40px;
