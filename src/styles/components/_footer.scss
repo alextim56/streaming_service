@@ -1,0 +1,55 @@
+@use "../global/variables" as *;
+@use "../global/mixins";
+
+.footer {
+  padding: 6px 0;
+  min-height: 100px;
+  border-top: 1px solid $color-dark-gray;
+  display: none;
+
+  &--active {
+    display: flex;
+  }
+
+  @include mixins.vp-767 {
+    border: none;
+    padding: 14px 0 16px;
+    margin-left: -8px;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 97px;
+    gap: 84px;
+    align-items: center;
+
+    @include mixins.vp-767 {
+      grid-template-columns: 1fr 40px;
+      gap: 16px 10px;
+    }
+  }
+
+  &__track {
+    padding: 14px 8px;
+    min-width: 100%;
+
+    @include mixins.vp-767 {
+      padding: 0;
+    }
+  }
+
+  &__volume {
+    @include mixins.vp-767 {
+      display: none;
+    }
+  }
+
+  &__player--xl {
+    display: none;
+
+    @include mixins.vp-767 {
+      display: flex;
+      grid-column: span 2;
+    }
+  }
+}

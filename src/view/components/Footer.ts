@@ -33,7 +33,19 @@ const iconRepeat = svg(
     svg('use', { xlink: { href: logo + '#icon-repeat' } })
 );
 
-export function getFooterElement(track: AudioTrack): HTMLElement {
+export function setFooterAudioTrack(track: AudioTrack) {
+    const footerElement = document.querySelector('.footer');
+    if (footerElement) {
+        footerElement.classList.add('footer--active');
+        const footerTrackElement = document.querySelector('.footer__track');
+        if (footerTrackElement) {
+            footerTrackElement.innerHTML = '';
+            footerTrackElement.append(getTrackCardElement(track));
+        }
+    }
+}
+
+export function getFooterElement(): HTMLElement {
     const player = el('div', { class: 'player' }, [
         el('div', { class: 'player__controls' }, [
             el('button', { class: 'player__shuffle' }, [iconShuffle]),
@@ -41,6 +53,11 @@ export function getFooterElement(track: AudioTrack): HTMLElement {
             el('button', { class: 'player__play' }, [iconPlay]),
             el('button', { class: 'player__forward' }, [iconForward]),
             el('button', { class: 'player__repeat' }, [iconRepeat])
+        ]),
+        el('div', { class: 'player__progress' }, [
+            el('span', { class: 'player__elapsed' }, '0:26'),
+            el('progress', { class: 'player__bar', value: 26, max: 100 }),
+            el('span', { class: 'player__total' }, '6:55')
         ])
     ]);
 
@@ -76,11 +93,10 @@ export function getFooterElement(track: AudioTrack): HTMLElement {
     const footer: HTMLElement = el('footer', { class: 'footer' }, [
         el('div', { class: 'container' }, [
             el('div', { class: 'footer__content' }, [
-                el('div', { class: 'footer__track' }, [
-                    getTrackCardElement(track)
-                ]),
+                el('div', { class: 'footer__track' }),
                 el('div', { class: 'footer__player' }, [
-                    player
+                    player,
+                    playerSmall
                 ]),
                 footerPlayerXl,
                 footerVolume

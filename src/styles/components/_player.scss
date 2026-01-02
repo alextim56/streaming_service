@@ -1,0 +1,103 @@
+@use "../global/variables" as *;
+@use "../global/mixins";
+
+.player {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    @include mixins.vp-767 {
+        display: none;
+    }
+
+    &__controls {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button {
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: $color-smooth-gray;
+
+        &:hover,
+        &:focus-visible {
+            color: $color-black;
+        }
+    }
+
+    &__progress {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 2px 0 1px;
+    }
+
+    &__elapsed,
+    &__total {
+        font-size: 11px;
+        line-height: 100%;
+        color: $color-smooth-gray;
+    }
+
+    &__bar {
+        height: 4px;
+        width: 100%;
+        background-color: $color-smart-grey;
+
+        /* Styling the filled part (browser-specific pseudo-elements) */
+        &::-webkit-progress-bar {
+            background-color: $color-smart-grey;
+            border-radius: 75px;
+        }
+
+        &::-webkit-progress-value {
+            background-color: $color-dark-salmon;
+            /* Color of the filled bar */
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+            /* Smooth transition for progress updates */
+        }
+
+        &::-moz-progress-bar {
+            background-color: $color-smooth-green;
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+    }
+
+    &__volume {
+        display: grid;
+        grid-template-columns: 16px 1fr;
+        align-items: center;
+        gap: 6px;
+    }
+
+    &__sound {
+        width: 100%;
+        accent-color: $color-dark-salmon;
+        height: 4px;
+        outline: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 0 0 5px inset $color-smart-grey;
+        transition: $transition-300;
+    }
+
+    &--small {
+        width: 100%;
+        display: none;
+        @include mixins.vp-767 {
+            display: flex;
+        }
+    }
+}
