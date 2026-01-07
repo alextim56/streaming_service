@@ -1,6 +1,7 @@
 import type { AudioTrack } from '../types';
 import { getAllTracks } from './requestsClass';
 import { elapsedElement, progressElement, playerTotalElement } from '../view/components/Footer';
+import { toMinAndSec } from '../services/utils';
 import * as audioTracks from '../assets/audio';
 
 export class AudioClass {
@@ -48,21 +49,38 @@ export class AudioClass {
                 this._audio.pause();
             }
             this._audio = new Audio(audioTracks.tracks[indx]);
+            if (progressElement) {
+                progressElement.value = 0;
+                progressElement.max = 1000;
+            }
+
+            // Ждем загрузки метаданных (включая длительность)
+            this._audio.addEventListener('loadedmetadata', () => {
+                if (this._audio && playerTotalElement) {
+                    playerTotalElement.textContent = `${toMinAndSec(this._audio.duration)}`;
+                    progressElement.max = this._audio.duration;
+                }
+            });
+
+            this._audio.addEventListener('timeupdate', () => {
+                if (this._audio && elapsedElement && progressElement) {
+                    elapsedElement.textContent = `${toMinAndSec(this._audio.currentTime)}`;
+                    progressElement.value = this._audio.currentTime;
+                }
+            });
+
+            // Начинаем загрузку
+            this._audio.load();
+
             this.isPlaying = false;
             this._audio.onplay = e => {
-                this.isPlaying = true; 
+                this.isPlaying = true;
             }
             this._audio.onpause = e => {
-                this.isPlaying = false; 
+                this.isPlaying = false;
             }
-            console.log(this._audio?.duration);
+            //console.log(this._audio.duration);
             this._currentTrack = track;
-            if (elapsedElement) {
-                elapsedElement.textContent = '0:00';
-            }
-            if (playerTotalElement) {
-                playerTotalElement.textContent = this._audio.duration.toString();
-            }
         }
     }
 
