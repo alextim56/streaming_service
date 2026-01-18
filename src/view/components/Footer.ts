@@ -58,12 +58,39 @@ export function getFooterElement(): HTMLElement {
         }
     };
 
+    const playNextButton = el('button', { class: 'player__forward' }, [iconForward]);
+    playNextButton.onclick = e => {
+        if (audioData.tracks) {
+            audioData.playNext();
+            if (audioData.currentTrack) {
+                setFooterAudioTrack(audioData.currentTrack);
+            }
+        }
+    };
+
+    const playPriorButton = el('button', { class: 'player__back' }, [iconBack]);
+    playPriorButton.onclick = e => {
+        if (audioData.tracks) {
+            audioData.playPrior();
+            if (audioData.currentTrack) {
+                setFooterAudioTrack(audioData.currentTrack);
+            }
+        }
+    };
+
+    const playShuffleButton = el('button', { class: 'player__shuffle' }, [iconShuffle]);
+    playShuffleButton.onclick = e => {
+        if (audioData.tracks) {
+            audioData.shuffleMode = !audioData.shuffleMode;
+        }
+    };
+
     const player = el('div', { class: 'player' }, [
         el('div', { class: 'player__controls' }, [
-            el('button', { class: 'player__shuffle' }, [iconShuffle]),
-            el('button', { class: 'player__back' }, [iconBack]),
+            playShuffleButton,
+            playPriorButton,
             playButton,
-            el('button', { class: 'player__forward' }, [iconForward]),
+            playNextButton,
             el('button', { class: 'player__repeat' }, [iconRepeat])
         ]),
         el('div', { class: 'player__progress' }, [
