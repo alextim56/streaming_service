@@ -6,6 +6,9 @@ import type { AudioTrack } from '../../types';
 import { audioData } from '../../model/AudioClass';
 import { getTrackCardElement, getTrackCardNameElement, getTrackCardAgoElement, getTrackCardHeartElement } from './TrackCard';
 
+const tracksPerPage = 10;
+let currentPage = 1;
+
 export function getAudioSection(): HTMLElement {
     const iconMusicNotes1 = svg(
         'svg', { class: 'aside-nav__btn-icon', width: 32, height: 32 },
@@ -49,7 +52,7 @@ export function getAudioSection(): HTMLElement {
         //const allTracks = await getAllTracks();
         //console.log(audioData.tracks);
         if (audioData.tracks) {
-            renderTrackTable(audioData.tracks.slice(0, 5));
+            renderTrackTable(audioData.tracks.slice(0, tracksPerPage));
         }
     };
 
@@ -134,6 +137,35 @@ export function getAudioSection(): HTMLElement {
         favTracksButton.disabled = true;
     };
 
+    const paginationButtons: HTMLButtonElement[] = [];
+    if (audioData.tracks) {
+        const pagesCount = audioData.tracks.length / tracksPerPage;
+        for (let i = 0; i < pagesCount; i++) {
+            const pageButton: HTMLButtonElement = el('button', { class: 'audio__pagination-btn' }, i + 1);
+
+            if (i === 0) {
+                pageButton.disabled = true;
+            }
+
+            pageButton.onclick = e => {
+                currentPage = parseInt(pageButton.textContent);
+                if (audioData.tracks) {
+                    renderTrackTable(audioData.tracks.slice((currentPage-1)*tracksPerPage, currentPage*tracksPerPage));
+                }
+                paginationButtons.forEach(element => {
+                    if (element != pageButton) {
+                        element.disabled = false;
+                    } else {
+                        element.disabled = true;
+                    }
+                });
+                //pageButton.setAttribute('disabled', 'true');
+            };
+
+            paginationButtons.push(pageButton);
+        }
+    }
+
     const audioSection: HTMLElement = el('section', { class: 'audio' }, [
         el('div', { class: 'container' }, [
             el('h1', { class: 'visually-hidden' }, 'Прогрыватель аудио-треков'),
@@ -164,7 +196,12 @@ export function getAudioSection(): HTMLElement {
                             ])
                         ]),
                         trackTableBody
-                    ])
+                    ]),
+                    el('ol', { class: 'audio__pagination' },
+                        el('li', { class: 'audio__pagination-item' },
+                            paginationButtons
+                        )
+                    )
                 ])
             ])
         ])

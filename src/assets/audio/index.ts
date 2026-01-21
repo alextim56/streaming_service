@@ -10,7 +10,7 @@ import track08 from './track08.mp3';
 import track09 from './track09.mp3';
 // добавьте все файлы
 
-export const tracks = [
+export const tracks: string[] = [
   track01,
   track02,
   track03,
